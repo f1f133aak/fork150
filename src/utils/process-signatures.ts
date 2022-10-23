@@ -12,7 +12,7 @@ type ProcessInput = {
   writeLog: LogsContextInterface['writeLog'];
   shouldCancel: React.MutableRefObject<boolean>;
   relayUrl: string;
-  gasPrice?: string;
+  gasPrice: string;
 };
 
 type EthersError = {

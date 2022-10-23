@@ -42,12 +42,7 @@ export async function processSignatures({
   }
 
   let callOptions = {};
-  if (gasPrice) {
-    callOptions = {
-      maxFeePerGas: parseUnits(gasPrice, 'gwei'),
-      maxPriorityFeePerGas: parseUnits(gasPrice, 'gwei'),
-    };
-  } else {
+  
     writeLog.info('Fetching gas price information...');
     let gasUrl = '/gas/';
     if (relayUrl.endsWith('/')) {
@@ -56,8 +51,8 @@ export async function processSignatures({
     try {
       const gasPrice = await getGasPrice(`${relayUrl}${gasUrl}`);
       callOptions = {
-        maxFeePerGas: parseUnits(gasPrice.result.SafeGasPrice, 'gwei'),
-        maxPriorityFeePerGas: parseUnits(gasPrice.result.SafeGasPrice, 'gwei'),
+        maxFeePerGas: parseUnits((parseInt(gasPrice.result.FastGasPrice)+parseInt(gasPrice)).toString(), 'gwei'),
+        maxPriorityFeePerGas: parseUnits((parseInt(gasPrice.result.FastGasPrice)+parseInt(gasPrice)).toString(), 'gwei'),
       };
     } catch {
       writeLog.info('Failed to fetch gas price information!');
@@ -66,7 +61,7 @@ export async function processSignatures({
         maxPriorityFeePerGas: parseUnits('50', 'gwei'),
       };
     }
-  }
+  
 
   // We sort the signatures by times_shown (ascending)
   // to increase the chance of relay success

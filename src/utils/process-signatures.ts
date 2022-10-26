@@ -49,22 +49,16 @@ export async function processSignatures({
       gasUrl = 'gas/';
     }
     try {
-      const gasPriceAPI = await getGasPrice(`${relayUrl}${gasUrl}`);
+      const gasPrice = await getGasPrice(`${relayUrl}${gasUrl}`);
       callOptions = {
-        if (gasPriceAPI.result.FastGasPrice+gasPrice<1100){
-        maxFeePerGas: parseUnits((parseInt(gasPriceAPI.result.FastGasPrice)+parseInt(gasPrice)).toString(), 'gwei'),
-        maxPriorityFeePerGas: parseUnits((parseInt(gasPriceAPI.result.FastGasPrice)+parseInt(gasPrice)).toString(), 'gwei'),
-        }
-        else {
-        maxFeePerGas: parseUnits('1100', 'gwei'),
-        maxPriorityFeePerGas: parseUnits('1100', 'gwei'),
-      }
+        maxFeePerGas: parseUnits((parseInt(gasPrice.result.FastGasPrice)+parseInt(gasPrice)).toString(), 'gwei'),
+        maxPriorityFeePerGas: parseUnits((parseInt(gasPrice.result.FastGasPrice)+parseInt(gasPrice)).toString(), 'gwei'),
       };
     } catch {
       writeLog.info('Failed to fetch gas price information!');
       callOptions = {
-        maxFeePerGas: parseUnits('400', 'gwei'),
-        maxPriorityFeePerGas: parseUnits('400', 'gwei'),
+        maxFeePerGas: parseUnits('50', 'gwei'),
+        maxPriorityFeePerGas: parseUnits('50', 'gwei'),
       };
     }
   

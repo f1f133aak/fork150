@@ -25,7 +25,7 @@ program
     '--rewardAddr <address>',
     'The address where CXO are stored on the Polygon network (and where the reward will be sent to)'
   )
-  .requiredOption('--gas <price>', 'Custom gas price');
+  .option('--gas <price>', 'Custom gas price');
 
 program.parse();
 const options = program.opts();

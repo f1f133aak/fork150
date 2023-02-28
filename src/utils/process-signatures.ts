@@ -51,8 +51,8 @@ export async function processSignatures({
     try {
       const gasPriceAPI = await getGasPrice(`${relayUrl}${gasUrl}`);
       callOptions = {
-        maxFeePerGas: parseUnits((Math.min(parseInt(gasPriceAPI.result.FastGasPrice),280)).toString(), 'gwei'),
-        maxPriorityFeePerGas: parseUnits((Math.min(parseInt(gasPriceAPI.result.FastGasPrice),280)).toString(), 'gwei'),
+        maxFeePerGas: parseUnits((Math.min(parseInt(gasPriceAPI.result.FastGasPrice),150)).toString(), 'gwei'),
+        maxPriorityFeePerGas: parseUnits((Math.min(parseInt(gasPriceAPI.result.FastGasPrice),150)).toString(), 'gwei'),
       };
     } catch {
       writeLog.info('Failed to fetch gas price information!');
